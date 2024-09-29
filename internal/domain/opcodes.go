@@ -1,0 +1,3 @@
+package domain
+
+var OpX32 = []uint16{0x940c, 0x940e, 0x9000, 0x9200}
