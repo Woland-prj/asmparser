@@ -1,9 +1,13 @@
 package main
 
 import (
+	"asmparser/internal/domain"
 	"asmparser/internal/entities"
+	"asmparser/internal/services/composeservice"
 	"asmparser/internal/services/decodeservice"
+	"asmparser/internal/services/disassemblyservice"
 	"asmparser/internal/services/readservice"
+	"errors"
 	"fmt"
 	"log"
 )
@@ -11,6 +15,8 @@ import (
 func main() {
 	rs := readservice.New()
 	ds := decodeservice.New()
+	cs := composeservice.New()
+	dasm := disassemblyservice.New()
 	rs.ReadFile("test.txt")
 	strs, err := rs.GetFileData()
 	if err != nil {
@@ -28,5 +34,28 @@ func main() {
 
 	for _, hstr := range hstrs {
 		fmt.Println(hstr)
+	}
+
+	var maps []entities.AddressMap
+	for _, hstr := range hstrs {
+		mp, err := cs.Structurize(hstr)
+		if err != nil {
+			if errors.Is(err, domain.ErrEOF) {
+				break
+			}
+			log.Fatal(err)
+		}
+		maps = append(maps, mp)
+	}
+	mp := cs.Compose(maps)
+	fmt.Println(mp)
+
+	progStrs, err := dasm.Disassemble(mp)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(progStrs)
+	for _, progStr := range progStrs {
+		fmt.Println(progStr)
 	}
 }

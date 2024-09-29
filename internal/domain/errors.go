@@ -12,6 +12,7 @@ var (
 	ErrInconsistenType     = errors.New("inconsistent package type")
 	ErrFileNotRead         = errors.New("file not read")
 	ErrFileNotOpen         = errors.New("file not open")
+	ErrUnknownOpcode       = errors.New("unknown opcode")
 
 	ErrEOF = errors.New("end of file")
 )

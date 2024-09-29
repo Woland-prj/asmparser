@@ -13,6 +13,8 @@ var MasksX16 = []uint16{
 	0xffff, //nop
 }
 
+var Masks = append(MasksX16, MasksX32...)
+
 // 0 0000
 // 1 0001
 // 2 0010
