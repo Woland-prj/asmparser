@@ -15,7 +15,7 @@ func NewEorCmd(dMask, rMask uint16) *EorCmd {
 func (c *EorCmd) GetMnemonic(cmd []uint16) string {
 	w := cmd[0]
 	d := (w & c.dMask) >> 4
-	preR := (w & c.dMask) >> 5
+	preR := w & c.rMask
 	r := (preR >> 5) | (preR & 0xF)
 	return fmt.Sprintf("eor R%d,R%d", d, r)
 }

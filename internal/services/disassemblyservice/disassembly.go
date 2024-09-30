@@ -32,8 +32,9 @@ func (ds *DisassemblyService) Disassemble(progAddrMap entities.AddressMap) ([]st
 	for _, addr := range keys {
 		cmdHex := progAddrMap[addr]
 		found := false
-		for _, mask := range domain.MasksX32 {
+		for _, mask := range domain.Masks {
 			opcode := cmdHex[0] & mask
+			fmt.Printf("opcode: %x. mask: %x\n", opcode, mask)
 			cmd, ok := cmdMap[opcode]
 			if !ok {
 				continue

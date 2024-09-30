@@ -15,6 +15,7 @@ func NewLdiCmd(dMask, kMask uint16) *LdiCmd {
 func (c *LdiCmd) GetMnemonic(cmd []uint16) string {
 	w := cmd[0]
 	k := ((w & c.kMask) >> 4) | (w & 0xF)
-	d := (w & c.dMask) >> 4
+	fmt.Printf("k %16b\n", c.kMask)
+	d := ((w & c.dMask) >> 4) + 0x10
 	return fmt.Sprintf("ldi R%d,0x%x", d, k)
 }

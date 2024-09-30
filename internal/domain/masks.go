@@ -5,12 +5,12 @@ package domain
 var MasksX32 = []uint16{0xfe0e, 0xfe0f}
 
 var MasksX16 = []uint16{
-	0xfc00, //eor
-	0xf000, //ldi, rjmp, subi, subci
-	0xf800, //out, in
+	0xffff, //nop
 	0xff00, //sbi, cbi
 	0xfc07, //breq, brne, br....
-	0xffff, //nop
+	0xfc00, //eor
+	0xf800, //out, in
+	0xf000, //ldi, rjmp, subi, subci
 }
 
 var Masks = append(MasksX16, MasksX32...)
