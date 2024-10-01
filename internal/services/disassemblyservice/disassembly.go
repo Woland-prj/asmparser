@@ -34,12 +34,11 @@ func (ds *DisassemblyService) Disassemble(progAddrMap entities.AddressMap) ([]st
 		found := false
 		for _, mask := range domain.Masks {
 			opcode := cmdHex[0] & mask
-			fmt.Printf("opcode: %x. mask: %x\n", opcode, mask)
 			cmd, ok := cmdMap[opcode]
 			if !ok {
 				continue
 			}
-			asmStr := fmt.Sprintf("%2x: %s", addr, cmd.GetMnemonic(cmdHex))
+			asmStr := fmt.Sprintf("%02x:  %s  %s", addr, ds.splitCmd(cmdHex), cmd.GetMnemonic(cmdHex))
 			resProg = append(resProg, asmStr)
 			found = true
 			break
@@ -51,4 +50,12 @@ func (ds *DisassemblyService) Disassemble(progAddrMap entities.AddressMap) ([]st
 	}
 
 	return resProg, nil
+}
+
+func (ds *DisassemblyService) splitCmd(cmd []uint16) string {
+	res := fmt.Sprintf("%02x %02x", cmd[0]&0x00ff, (cmd[0]&0xff00)>>8)
+	if (len(cmd) == 2) && (cmd[1] != 0) {
+		res += fmt.Sprintf(" %02x %02x", cmd[1]&0x00ff, (cmd[1]&0xff00)>>8)
+	}
+	return res
 }

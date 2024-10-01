@@ -44,6 +44,5 @@ func (s *DecodeService) Decode(str string) (entities.HexString, error) {
 		hexStr.Data = append(hexStr.Data, uint16(dataBytes[i+1])<<8+uint16(dataBytes[i]))
 	}
 
-	fmt.Println(hexStr)
 	return hexStr, nil
 }

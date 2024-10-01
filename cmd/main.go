@@ -32,10 +32,6 @@ func main() {
 		hstrs = append(hstrs, hstr)
 	}
 
-	for _, hstr := range hstrs {
-		fmt.Println(hstr)
-	}
-
 	var maps []entities.AddressMap
 	for _, hstr := range hstrs {
 		mp, err := cs.Structurize(hstr)
@@ -48,13 +44,11 @@ func main() {
 		maps = append(maps, mp)
 	}
 	mp := cs.Compose(maps)
-	fmt.Println(mp)
 
 	progStrs, err := dasm.Disassemble(mp)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(progStrs)
 	for _, progStr := range progStrs {
 		fmt.Println(progStr)
 	}

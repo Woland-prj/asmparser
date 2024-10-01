@@ -20,6 +20,10 @@ func New() *CommandService {
 			0xb800: NewOutCmd(0x060F, 0x01F0),
 			// ldi Rd,K - 1110 KKKK dddd KKKK
 			0xe000: NewLdiCmd(0x00F0, 0x0F0F),
+			// sbis P,R - 1001 1011 PPPP Pbbb
+			0x9b00: NewSbisCmd(0x00F8, 0x0007),
+			// sbic P,R - 1001 1001 PPPP Pbbb
+			0x9900: NewSbicCmd(0x00F8, 0x0007),
 			// sbi P,b - 1001 1010 PPPP Pbbb
 			0x9a00: NewSbiCmd(0x00F8, 0x0007),
 			// cbi P,b - 1001 1000 PPPP Pbbb
