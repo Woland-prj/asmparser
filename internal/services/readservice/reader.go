@@ -36,7 +36,21 @@ func (s *ReadService) ReadFile(fileName string) error {
 	return nil
 }
 
-func (s *ReadService) GetFileData() ([]string, error) {
+func (s *ReadService) ReadStdin() error {
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+		if scanner.Text() == "" {
+			break
+		}
+		s.fileData = append(s.fileData, scanner.Text())
+	}
+	if err := scanner.Err(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *ReadService) GetData() ([]string, error) {
 	if len(s.fileData) == 0 {
 		return nil, fmt.Errorf("ReadService - GetFileData: %w", domain.ErrFileNotRead)
 	}
