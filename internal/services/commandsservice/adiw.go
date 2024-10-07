@@ -17,5 +17,6 @@ func (c *AdiwCmd) GetMnemonic(cmd []uint16) string {
 	d := (w & c.dMask) >> 4
 	preK := w & c.kMask
 	k := (preK >> 2) | (preK & 0xF)
-	return fmt.Sprintf("adiw R%d,0x%x", d, k)
+	reg := 24 + d*2
+	return fmt.Sprintf("adiw R%d:R%d,0x%x", reg+1, reg, k)
 }

@@ -18,8 +18,14 @@ func New() *CommandService {
 			0x0c00: NewAddCmd(0x01F0, 0x020F),
 			// adc Rd,Rr - 0001 11rd dddd rrrr
 			0x1c00: NewAdcCmd(0x01F0, 0x020F),
+			// sub Rd,Rr - 0001 10rd dddd rrrr
+			0x1800: NewSubCmd(0x01F0, 0x020F),
+			// sbc Rd,Rr - 0000 10rd dddd rrrr
+			0x0800: NewSbcCmd(0x01F0, 0x020F),
 			// adiw Rd,k - 1001 0110 kkdd kkkk
 			0x9600: NewAdiwCmd(0x0030, 0x00CF),
+			// sbiw Rd,k - 1001 0111 kkdd kkkk
+			0x9700: NewSbiwCmd(0x0030, 0x00CF),
 			// eor Rd,Rr - 0010 01rd dddd rrrr
 			0x2400: NewEorCmd(0x01F0, 0x020F),
 			// out P,R - 1011 1PPr rrrr PPPP

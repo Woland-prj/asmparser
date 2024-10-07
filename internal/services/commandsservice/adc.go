@@ -7,12 +7,12 @@ type AdcCmd struct {
 	rMask uint16
 }
 
-func NewAdcCmd(dMask, rMask uint16) *AddCmd {
-	return &AddCmd{dMask, rMask}
+func NewAdcCmd(dMask, rMask uint16) *AdcCmd {
+	return &AdcCmd{dMask, rMask}
 }
 
 // adc Rd,Rr - 0001 11rd dddd rrrr
-func (c *AddCmd) GetMnemonic(cmd []uint16) string {
+func (c *AdcCmd) GetMnemonic(cmd []uint16) string {
 	w := cmd[0]
 	d := (w & c.dMask) >> 4
 	preR := w & c.rMask
